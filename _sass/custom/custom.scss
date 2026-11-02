@@ -1,0 +1,33 @@
+// Wallet screenshots: the popup is a fixed 380x600 window, so show it at that
+// size with a device-ish edge instead of stretching it to the content column.
+.shot {
+  margin: 1.5rem 0;
+  text-align: center;
+
+  img {
+    width: 380px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 22px;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    box-shadow: 0 10px 28px rgba(30, 20, 80, 0.14);
+  }
+
+  figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    opacity: 0.75;
+  }
+}
+
+// Two or three screenshots side by side; wraps on narrow screens.
+.shot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  justify-content: center;
+
+  .shot {
+    flex: 0 1 380px;
+  }
+}

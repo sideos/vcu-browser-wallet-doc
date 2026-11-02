@@ -1,0 +1,11 @@
+{%- comment -%}
+  One wallet screenshot, shown at its real popup width (380 px; the PNG is 2x).
+  Usage: {% include shot.html src="wallet-list.png" alt="What it shows" caption="Optional caption" %}
+  Images come from /assets/img, regenerated with `pnpm screenshots` in the wallet repo.
+{%- endcomment -%}
+<figure class="shot">
+  <img src="{{ '/assets/img/' | append: include.src | relative_url }}" alt="{{ include.alt }}" width="380" loading="lazy">
+  {%- if include.caption %}
+  <figcaption>{{ include.caption }}</figcaption>
+  {%- endif %}
+</figure>

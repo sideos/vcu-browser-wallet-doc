@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>sideos Wallet integration example</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 640px; margin: 40px auto; line-height: 1.5; }
+      section { margin-bottom: 32px; padding: 16px; border: 1px solid #ddd; border-radius: 8px; }
+      input { width: 100%; box-sizing: border-box; padding: 8px; font-family: monospace; margin-bottom: 8px; }
+      button { padding: 8px 16px; }
+      button:disabled { opacity: 0.5; }
+    </style>
+  </head>
+  <body>
+    <h1>sideos Wallet — integration example</h1>
+    <p>
+      See the <a href="./browser.html">integration guide</a> for the full explanation. This page shows the two
+      trigger attributes the wallet's content script watches for — served over
+      <code>http(s)://</code>, not opened as a local file (the content script isn't injected into
+      <code>file://</code> pages).
+    </p>
+
+    <section>
+      <h2>1. Receive a credential offer</h2>
+      <p>
+        In a real integration, you'd call your own backend to create the offer and never show the
+        raw URI to the user. This input stands in for that step, since a real offer is single-use
+        and can't be hardcoded into a static example.
+      </p>
+      <input
+        id="offer-uri"
+        placeholder="Paste an openid-credential-offer:// URI from your backend"
+      />
+      <!--
+        The button starts with an empty data-sideos-offer attribute. It's only
+        meaningful once set — see the script below, which mirrors what you'd do
+        after an actual fetch() to your backend resolves.
+      -->
+      <button id="offer-button" data-sideos-offer="">Add to wallet</button>
+    </section>
+
+    <section>
+      <h2>2. Share a presentation request</h2>
+      <input
+        id="request-uri"
+        placeholder="Paste an openid4vp:// URI from your backend"
+      />
+      <button id="request-button" data-sideos-request="">Share with verifier</button>
+    </section>
+
+    <script>
+      // This is the only part that matters: set the real URI as the attribute's
+      // value before (or right up to) the moment the user clicks. Everything
+      // else here is just wiring the two demo inputs up to their buttons.
+
+      const offerInput = document.getElementById('offer-uri');
+      const offerButton = document.getElementById('offer-button');
+      offerInput.addEventListener('input', () => {
+        offerButton.setAttribute('data-sideos-offer', offerInput.value);
+      });
+
+      const requestInput = document.getElementById('request-uri');
+      const requestButton = document.getElementById('request-button');
+      requestInput.addEventListener('input', () => {
+        requestButton.setAttribute('data-sideos-request', requestInput.value);
+      });
+
+      // In a real page, replace the two blocks above with something like:
+      //
+      //   fetch('/api/create-offer')
+      //     .then((res) => res.json())
+      //     .then(({ credentialOffer }) => {
+      //       offerButton.setAttribute('data-sideos-offer', credentialOffer);
+      //       offerButton.disabled = false;
+      //     });
+      //
+      // — i.e. set the attribute once, when you actually have the URI, rather
+      // than wiring it to an input field.
+    </script>
+  </body>
+</html>

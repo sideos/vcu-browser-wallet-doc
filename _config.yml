@@ -1,0 +1,54 @@
+title: Browser Wallet
+description: User guide and integration guide for the Browser Wallet, a Chrome extension that holds OpenID4VCI credentials and answers OpenID4VP requests.
+
+# Project site: https://sideos.github.io/vcu-browser-wallet-doc/
+url: https://sideos.github.io
+baseurl: /vcu-browser-wallet-doc
+
+# Theme is fetched by GitHub Pages at build time; pinned so a theme release
+# can't change the site underneath us. Bump deliberately.
+remote_theme: just-the-docs/just-the-docs@v0.12.0
+plugins:
+  - jekyll-remote-theme
+
+# The wallet build the screenshots and descriptions were produced from.
+# Shown on the home page; update it together with `pnpm screenshots`.
+wallet_version: "3.0.5"
+
+# Explicit, rather than relying on the jekyll-default-layout plugin that
+# GitHub Pages happens to enable: every page gets the theme's layout.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+search_enabled: true
+heading_anchors: true
+
+# The {: .warning } / {: .note } callouts used in the pages.
+callouts:
+  warning:
+    title: Warning
+    color: red
+  note:
+    title: Note
+    color: blue
+
+# Renders ```mermaid blocks (the integration guide's sequence diagrams).
+mermaid:
+  version: "11.4.1"
+
+aux_links:
+  "Docs source":
+    - "https://github.com/sideos/vcu-browser-wallet-doc"
+aux_links_new_tab: true
+
+footer_content: "Test and reference wallet. Not for production use."
+
+# Everything below is build tooling or repo housekeeping, not site content.
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
